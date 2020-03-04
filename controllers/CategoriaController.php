@@ -41,9 +41,25 @@ switch($_GET['op'])
    case 'listar':
       $respuesta = $categoria->listar();
       $data = Array();
-      echo "<pre>";
-      var_dump($respuesta);
-      echo "</pre>";
+      
+      while($reg = $respuesta->fetch_object())
+      {
+         $data[] = array(
+            "0" => $reg->idcategoria,
+            "1" => $reg->nombre,
+            "2" => $reg->descripcion,
+            "3" => $reg->condicion,
+         );
+      }
+
+      $result = array(
+         "sEcho" => 1, //Informacion para el datatable
+         "iTotalRecords" => count($data), // enviar el total registros al datatable
+         "iTotalDisplayRecords" => count($data), // enviar total registos a visualizar
+         "aaData" => $data 
+      );
+
+      echo json_encode($result);
    break;
 }
 
