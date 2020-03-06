@@ -37,7 +37,12 @@ require "pages/sidebar.php";
                 <div class="col-lg-12">
                     
 
-                    <div class="card card-primary card-outline table-responsive">
+                    <div class="card card-primary card-outline table-responsive" id="listado">
+                        <div class="card-header">
+                            <button class="btn btn-success" onclick="mostrarForm(true)">
+                                <i class="fa fa-plus-circle"></i> Agregar
+                            </button>
+                        </div>
                         <div class="card-body">
                            <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">
                               <thead>
@@ -58,6 +63,25 @@ require "pages/sidebar.php";
                         </div>
                     </div>
                     <!-- /.card -->
+                    <div class="card card-primary card-outline table-responsive" id="formularioregistros">
+                        <div class="card-body">
+                            <form name="formulario" id="formulario" method="POST">
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="hidden" name="idcategoria" id="idcategoria">
+                                    <input type="text" class="form-control" name="nombre" id="nombre" maxLength="50" placeholder="nombre" required>
+                                </div>
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label for="descripcion">Descripcion:</label>
+                                    <input type="text" class="form-control" name="descripcion" id="descripcion" maxLength="50" placeholder="descripcion" required>
+                                </div>
+                                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button class="btn btn-primary" type="submit" id="btnGuardar"> <i class="fa fa-save"></i> Guardar</button>
+                                    <button class="btn btn-danger" type="button" onclick="cancelarForm()"> <i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.col-md-6 -->
             </div>
