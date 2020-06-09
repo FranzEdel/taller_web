@@ -1,5 +1,18 @@
-<?php 
+<?php
+//Activar almacenamiento en buffer
+ob_start();
+session_start();
+
+if(!isset($_SESSION['nombre']))
+{
+    header("Location: login.php");
+} else {
+
 require "pages/header.php";
+
+if($_SESSION['almacen'] == 1)
+{
+
 ?>
 <!-- Main Sidebar Container -->
 <?php 
@@ -15,14 +28,7 @@ require "pages/sidebar.php";
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">Categorias</h1>
                 </div>
-                <!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                        <li class="breadcrumb-item active">Categorias</li>
-                    </ol>
-                </div>
-                <!-- /.col -->
+
             </div>
             <!-- /.row -->
         </div>
@@ -95,7 +101,16 @@ require "pages/sidebar.php";
 
 
 <?php 
+} else {
+    require 'noacceso.php';
+}
+
 require "pages/footer.php";
 ?>
 
 <script src="scripts/categorias.js"></script>
+
+<?php 
+}
+ob_end_flush();
+?>

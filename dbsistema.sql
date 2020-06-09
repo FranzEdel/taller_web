@@ -198,9 +198,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`idusuario`, `nombre`, `tipo_documento`, `num_documento`, `direccion`, `telefono`, `email`, `cargo`, `login`, `clave`, `imagen`, `condicion`) VALUES
-(1, 'Franz Edel Toco Bernal', 'DNI', '454545', '', '', '', '', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '', 1),
-(2, 'Juan Perez', 'CEDULA', '4656567', 'Alto Sucre S/n', '', 'juan@mail.com', 'Vendedor', 'vendedor', 'b735743451a9b6a66f4291742f1f6152dc6fa16d932e08eaaf91f0cd9c94cf04', '1578517053.jpg', 1),
-(3, 'Ana Diaz', 'CEDULA', '454545', '', '', '', '', 'ana', '099c7afdd29302c8b2926aee85ca36ed216b4591c4c4ada8256deca36d0a3d79', '1578542532.png', 1);
+(1, 'Administrador', 'DNI', '454545', '', '', '', '', 'franz', '03ad6b333d445099c7dfe0ff745ec5cc1330d149ef752f36c3aed4efea13f725', '', 1),
+(2, 'Juan Perez', 'CEDULA', '4656567', 'Alto Sucre S/n', '', 'juan@mail.com', 'juan', 'juan', 'b735743451a9b6a66f4291742f1f6152dc6fa16d932e08eaaf91f0cd9c94cf04', '1578517053.jpg', 1),
+(3, 'Ana Diaz', 'CEDULA', '454545', '', '', '', '', 'ana', '24d4b96f58da6d4a8512313bbd02a28ebf0ca95dec6e4c86ef78ce7f01e788ac', '1578542532.png', 1);
 
 -- --------------------------------------------------------
 
@@ -222,7 +222,7 @@ INSERT INTO `usuario_permiso` (`idusuario_permiso`, `idusuario`, `idpermiso`) VA
 (7, 3, 4),
 (8, 3, 5),
 (9, 1, 1),
-(10, 1, 4),
+(10, 1, 5),
 (11, 1, 7);
 
 -- --------------------------------------------------------

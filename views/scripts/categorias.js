@@ -22,7 +22,7 @@ function mostrarForm(flag) {
     if (flag) {
         $("#listado").hide();
         $("#formularioregistros").show();
-        //$("#btnGuardar").prop("disabled", false);
+        $("#btnGuardar").prop("disabled", false);
     } else {
         $("#listado").show();
         $("#formularioregistros").hide();
@@ -77,6 +77,40 @@ function guardaryeditar(e) {
             bootbox.alert(datos);
             mostrarForm(false);
             $("#tblistado").DataTable().ajax.reload();
+        }
+    });
+}
+
+function mostrar(idcategoria) {
+    $.post("../controllers/CategoriaController.php?op=mostrar", { idcategoria: idcategoria }, function(data, status) {
+        data = JSON.parse(data);
+        mostrarForm(true);
+
+        $("#idcategoria").val(data.idcategoria);
+        $("#nombre").val(data.nombre);
+        $("#descripcion").val(data.descripcion);
+    });
+}
+
+function desactivar(idcategoria) {
+    bootbox.confirm("¿Esta seguro de Desactivar la Categoria..?", function(result) {
+        if (result) {
+            $.post("../controllers/CategoriaController.php?op=desactivar", { idcategoria: idcategoria }, function(e) {
+                bootbox.alert(e);
+                $("#tblistado").DataTable().ajax.reload();
+            });
+        }
+    });
+}
+
+
+function activar(idcategoria) {
+    bootbox.confirm("¿Esta seguro de Activar la Categoria..?", function(result) {
+        if (result) {
+            $.post("../controllers/CategoriaController.php?op=activar", { idcategoria: idcategoria }, function(e) {
+                bootbox.alert(e);
+                $("#tblistado").DataTable().ajax.reload();
+            });
         }
     });
 }

@@ -1,3 +1,8 @@
+<?php 
+if(strlen(session_id()) < 1){
+  session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +36,15 @@
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="../controllers/UsuarioController.php?op=salir">
+          <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </a>
       </li>
     </ul>
   </nav>

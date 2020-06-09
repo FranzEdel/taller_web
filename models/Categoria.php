@@ -48,7 +48,7 @@ class Categoria
    // Metodo para listar
    public function listar()
    {
-      $sql = "SELECT * FROM categorias";
+      $sql = "SELECT * FROM categorias ORDER BY idcategoria DESC";
 
       return ejecutarConsulta($sql);
    }

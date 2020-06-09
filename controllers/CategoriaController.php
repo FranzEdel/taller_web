@@ -45,10 +45,23 @@ switch($_GET['op'])
       while($reg = $respuesta->fetch_object())
       {
          $data[] = array(
-            "0" => $reg->idcategoria,
+            "0" => $reg->condicion ?
+                     '<button class="btn btn-sm btn-warning" title="Editar" onclick="mostrar('.$reg->idcategoria.')">
+                        <i class="fa fa-pencil-alt"></i>
+                     </button>
+                     <button class="btn btn-sm btn-danger" title="Desactivar" onclick="desactivar('.$reg->idcategoria.')">
+                        <i class="fa fa-window-close"></i>
+                     </button>':
+                     '<button class="btn btn-sm btn-warning" title="Editar" onclick="mostrar('.$reg->idcategoria.')">
+                        <i class="fa fa-pencil-alt"></i>
+                     </button>
+                     <button class="btn btn-sm btn-primary" title="Activar" onclick="activar('.$reg->idcategoria.')">
+                        <i class="fa fa-check"></i>
+                     </button>',
             "1" => $reg->nombre,
             "2" => $reg->descripcion,
-            "3" => $reg->condicion,
+            "3" => $reg->condicion ? '<span class="label bg-green">Activado</span>': 
+                                     '<span class="label bg-red">Desactivado</span>',
          );
       }
 
