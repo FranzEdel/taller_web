@@ -9,26 +9,26 @@ function init() {
         guardaryeditar(e);
     });
 
-    //Cargamos los items al select proveedor
-    $.post('../controllers/IngresoController.php?op=selectProveedor', function(r){
-        $('#idproveedor').html(r);
-        $('#idproveedor').selectpicker('refresh');
+    //Cargamos los items al select cliente
+    $.post('../controllers/VentaController.php?op=selectCliente', function(r){
+        $('#idcliente').html(r);
+        $('#idcliente').selectpicker('refresh');
     });
 }
 
 //Funcion limpiar
 function limpiar() {
-    $("#idingreso").val("");
+    $("#idventa").val("");
 
-    $("#idproveedor").val("");
-    $("#idproveedor").selectpicker('refresh');
+    $("#idcliente").val("");
+    $("#idcliente").selectpicker('refresh');
 
-    $("#proveedor").val("");
+    $("#cliente").val("");
     $("#seri_comprobante").val("");
     $("#num_comprobante").val("");
     $("#impuesto").val("0");
 
-    $('#total_compra').val('');
+    $('#total_venta').val('');
     $('.filas').remove();
     $('#total').html('0');
 
@@ -83,7 +83,7 @@ function listar() {
             'pdf'
         ],
         "ajax": {
-            url: '../controllers/IngresoController.php?op=listar',
+            url: '../controllers/VentaController.php?op=listar',
             type: 'get',
             dataType: 'json',
             error: function(e) {
@@ -107,7 +107,7 @@ function listarArticulos() {
             
         ],
         "ajax": {
-            url: '../controllers/IngresoController.php?op=listarArticulos',
+            url: '../controllers/VentaController.php?op=listarArticulos',
             type: 'get',
             dataType: 'json',
             error: function(e) {
@@ -128,7 +128,7 @@ function guardaryeditar(e) {
     var formData = new FormData($("#formulario")[0]);
 
     $.ajax({
-        url: "../controllers/IngresoController.php?op=insertaryeditar",
+        url: "../controllers/VentaController.php?op=insertaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
@@ -143,15 +143,15 @@ function guardaryeditar(e) {
     });
 }
 
-function mostrar(idingreso) {
-    $.post("../controllers/IngresoController.php?op=mostrar", { idingreso: idingreso }, function(data, status) {
+function mostrar(idventa) {
+    $.post("../controllers/VentaController.php?op=mostrar", { idventa: idventa }, function(data, status) {
         data = JSON.parse(data);
         mostrarForm(true);
 
-        $("#idingreso").val(data.idingreso);
+        $("#idventa").val(data.idventa);
 
-        $("#idproveedor").val(data.idproveedor);
-        $("#idproveedor").selectpicker("refresh");
+        $("#idcliente").val(data.idcliente);
+        $("#idcliente").selectpicker("refresh");
 
         $("#tipo_comprobante").val(data.tipo_comprobante);
         $("#tipo_comprobante").selectpicker("refresh");
@@ -168,15 +168,15 @@ function mostrar(idingreso) {
 
     });
 
-    $.post("../controllers/IngresoController.php?op=listarDetalle&id="+idingreso,function(r){
+    $.post("../controllers/VentaController.php?op=listarDetalle&id="+idventa,function(r){
         $('#detalles').html(r);
     });
 }
 
-function anular(idingreso) {
-    bootbox.confirm("¿Esta seguro de Anular el Ingreso..?", function(result) {
+function anular(idventa) {
+    bootbox.confirm("¿Esta seguro de Anular la Venta..?", function(result) {
         if (result) {
-            $.post("../controllers/IngresoController.php?op=anular", { idingreso: idingreso }, function(e) {
+            $.post("../controllers/VentaController.php?op=anular", { idventa: idventa }, function(e) {
                 bootbox.alert(e);
                 $("#tblistado").DataTable().ajax.reload();
             });
@@ -203,21 +203,21 @@ function marcarImpuesto()
     }
 }
 
-function agregarDetalle(idarticulo, articulo)
+function agregarDetalle(idarticulo, articulo, precio_venta)
 {
     var cantidad = 1;
-    var precio_compra = 1;
-    var precio_venta = 1;
+    //var precio_venta = 1;
+    var descuento = 0;
 
     if(idarticulo != '')
     {
-        var subtotal = cantidad * precio_compra;
+        var subtotal = cantidad * precio_venta;
         var fila = '<tr class="filas" id="fila'+cont+'">'+
             '<td><button type="button" class="btn btn-danger btn-sm" onclick="eliminarDetalle('+cont+')" title="Eliminar Articulo de la lista"><i class="fas fa-ban"></i></button></td>'+
             '<td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td>'+
             '<td><input type="number" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
-            '<td><input type="number" name="precio_compra[]" id="precio_compra[]" value="'+precio_compra+'"></td>'+
-            '<td><input type="number" name="precio_venta[]" value="'+precio_venta+'"></td>'+
+            '<td><input type="text" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'"></td>'+
+            '<td><input type="number" name="descuento[]" value="'+descuento+'"></td>'+
             '<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
             '<td><button type="button" onclick="modificarSubtotales()" class="btn btn-info btn-sm" title="Actualizar"><i class="fas fa-sync-alt"></i></button></td>'+
         '</tr>';
@@ -234,16 +234,18 @@ function agregarDetalle(idarticulo, articulo)
 function modificarSubtotales()
 {
     var cant = document.getElementsByName('cantidad[]');
-    var prec = document.getElementsByName('precio_compra[]');
+    var prec = document.getElementsByName('precio_venta[]');
+    var des = document.getElementsByName('descuento[]');
     var sub = document.getElementsByName('subtotal');
 
     for(var i = 0; i < cant.length; i++)
     {
         var inpC = cant[i];
         var inpP = prec[i];
+        var inpD = des[i];
         var inpS = sub[i];
 
-        inpS.value = inpC.value * inpP.value;
+        inpS.value = inpC.value * inpP.value - inpD.value;
         document.getElementsByName('subtotal')[i].innerHTML = inpS.value;
     }
 
@@ -261,7 +263,7 @@ function calculartotales()
     }
 
     $('#total').html('Bs/. ' + total);
-    $('#total_compra').val(total);
+    $('#total_venta').val(total);
 
     evaluar();
 }

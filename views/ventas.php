@@ -10,7 +10,7 @@ if(!isset($_SESSION['nombre']))
 
 require "pages/header.php";
 
-if($_SESSION['compras'] == 1)
+if($_SESSION['ventas'] == 1)
 {
 
 ?>
@@ -26,7 +26,7 @@ require "pages/sidebar.php";
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Ingresos</h1>
+                    <h1 class="m-0 text-dark">Ventas</h1>
                 </div>
 
             </div>
@@ -54,11 +54,11 @@ require "pages/sidebar.php";
                                 <thead>
                                     <th>Opciones</th>
                                     <th>Fecha</th>
-                                    <th>Proveedor</th>
+                                    <th>Cliente</th>
                                     <th>Usuario</th>
                                     <th>Documento</th>
                                     <th>Número</th>
-                                    <th>Total Compra</th>
+                                    <th>Total Venta</th>
                                     <th>Estado</th>
                                 </thead>
                                 <tbody>
@@ -66,11 +66,11 @@ require "pages/sidebar.php";
                                 <tfoot>
                                     <th>Opciones</th>
                                     <th>Fecha</th>
-                                    <th>Proveedor</th>
+                                    <th>Cliente</th>
                                     <th>Usuario</th>
                                     <th>Documento</th>
                                     <th>Número</th>
-                                    <th>Total Compra</th>
+                                    <th>Total Venta</th>
                                     <th>Estado</th>
                                 </tfoot>
                            </table>
@@ -82,9 +82,9 @@ require "pages/sidebar.php";
                             <form name="formulario" id="formulario" method="POST">
                                 <div class="row">
                                     <div class="form-group col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                                        <label for="idproveedor">Proveedor(*):</label>
-                                        <input type="hidden" name="idingreso" id="idingreso">
-                                        <select name="idproveedor" id="idproveedor" class="form-control selectpicker" data-live-search="true" title="--Seleccione un Proveedor--" required></select>
+                                        <label for="idcliente">Cliente(*):</label>
+                                        <input type="hidden" name="idventa" id="idventa">
+                                        <select name="idcliente" id="idcliente" class="form-control selectpicker" data-live-search="true" title="--Seleccione un Cliente--" required></select>
                                     </div>
                                     <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                         <label for="fecha_hora">Fecha(*):</label>
@@ -129,8 +129,8 @@ require "pages/sidebar.php";
                                                 <th>Opciones</th>
                                                 <th>Artículo</th>
                                                 <th>Cantidad</th>
-                                                <th>Precio Compra</th>
                                                 <th>Precio Venta</th>
+                                                <th>Descuento</th>
                                                 <th>Subtotal</th>
                                                 <th></th>
                                             </thead>
@@ -139,7 +139,7 @@ require "pages/sidebar.php";
                                             <tfoot>
                                                 <th colspan="5"><h4>TOTAL</h4></th>
 
-                                                <th colspan="2"><h4 id="total">Bs/. 0.00</h4><input type="hidden" name="total_compra" id=total_compra></th>
+                                                <th colspan="2"><h4 id="total">Bs/. 0.00</h4><input type="hidden" name="total_venta" id=total_venta></th>
                                             </tfoot>
                                         </table>
                                     </div>
@@ -179,6 +179,7 @@ require "pages/sidebar.php";
                         <th>Categoría</th>
                         <th>Código</th>
                         <th>Stock</th>
+                        <th>Precio Venta</th>
                         <th>Imagen</th>
                     </thead>
                     <tbody>
@@ -189,6 +190,7 @@ require "pages/sidebar.php";
                         <th>Categoría</th>
                         <th>Código</th>
                         <th>Stock</th>
+                        <th>Precio Venta</th>
                         <th>Imagen</th>
                     </tfoot>
                 </table>
@@ -209,7 +211,7 @@ require "pages/sidebar.php";
 require "pages/footer.php";
 ?>
 
-<script src="scripts/ingresos.js"></script>
+<script src="scripts/ventas.js"></script>
 
 <?php 
 }

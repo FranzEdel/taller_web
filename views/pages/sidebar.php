@@ -153,7 +153,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="consultacompras.php" class="nav-link">
+                                    <a href="comprasfecha.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Consulta Compras</p>
                                     </a>
