@@ -2,14 +2,22 @@ var tabla;
 
 // Funcion que se ejecua al inicio
 function init() {
-    listar();
-    $('#fecha_inicio').change(listar());
-    $('#fecha_fin').change(listar());
+    listar($('#fecha_inicio').val(),$('#fecha_fin').val());
 }  
+$('#fecha_inicio').change(function(){
+    var fecha_inicio = $(this).val();
+    var fecha_fin = $('#fecha_fin').val();
+    listar(fecha_inicio,fecha_fin);
+});
 
-function listar() {
+$('#fecha_fin').change(function(){
+    var fecha_fin = $(this).val();
     var fecha_inicio = $('#fecha_inicio').val();
-    var fecha_fin = $('#fecha_fin').val();   
+    listar(fecha_inicio,fecha_fin);
+});
+  
+
+function listar(fecha_inicio,fecha_fin) {
 
     tabla = $('#tblistado').dataTable({
         "aProcessing": true, //activa el dataTable

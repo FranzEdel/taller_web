@@ -46,7 +46,7 @@ require "pages/sidebar.php";
                             <div class="row">
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <label for="fecha_inicio"> Fecha Inicio</label>
-                                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
+                                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" value="<?= date("Y-m-d"); ?>">
                                 </div>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <label for="fecha_fin"> Fecha Fin</label>
