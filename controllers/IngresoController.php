@@ -80,6 +80,7 @@ switch($_GET['op'])
       
       while($reg = $respuesta->fetch_object())
       {
+         $fecha = date("d/m/Y", strtotime($reg->fecha));
          $data[] = array(
             "0" => ($reg->estado == 'Aceptado') ?
                      '<button class="btn btn-sm btn-warning" title="Mostrar" onclick="mostrar('.$reg->idingreso.')">
@@ -91,12 +92,12 @@ switch($_GET['op'])
                      '<button class="btn btn-sm btn-warning" title="Mostrar" onclick="mostrar('.$reg->idingreso.')">
                         <i class="fa fa-eye"></i>
                      </button>',
-            "1" => $reg->fecha,
+            "1" => $fecha,
             "2" => $reg->proveedor,
             "3" => $reg->usuario,
             "4" => $reg->tipo_comprobante,
             "5" => $reg->serie_comprobante.'-'.$reg->num_comprobante,
-            "6" => $reg->total_compra,
+            "6" => $reg->total_compra.' Bs',
             "7" => ($reg->estado == 'Aceptado') ? '<span class="label bg-green">Aceptado</span>': 
                   '<span class="label bg-red">Anulado</span>',
          );

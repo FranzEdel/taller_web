@@ -26,7 +26,7 @@
                     {
                         echo '
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="escritorio.php" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>Escritorio</p>
                             </a>
@@ -174,7 +174,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="consultaventas.php" class="nav-link">
+                                    <a href="ventasfecha.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Consulta Ventas</p>
                                     </a>
