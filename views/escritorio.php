@@ -20,7 +20,9 @@ if($_SESSION['escritorio'] == 1)
   $regc = $respuestac->fetch_object();
   $totalc = $regc->total_compra;
 
-
+  $respuestav = $consulta->totalVentaHoy();
+  $regv = $respuestav->fetch_object();
+  $totalv = $regv->total_venta;
 
   //Datos para mostras en el gráfico de barras de las compras
   $compras10 = $consulta->comprasUltimos10dias();
@@ -56,7 +58,7 @@ if($_SESSION['escritorio'] == 1)
   $totalesv = '';
   while($regfechasv = $ventas12->fetch_object())
   {
-    $fechasv = $fechasv.'"'.$meses[$regfechasv->mes].'-'.$regfechasv->anio.'",';   
+    $fechasv = $fechasv.'"'.$regfechasv->anio.'-'.$meses[$regfechasv->mes].'",';   
     $totalesv = $totalesv.$regfechasv->total.',';
   }
   // Quitamos la ultima coma
@@ -118,7 +120,7 @@ require "pages/sidebar.php";
                             <!-- small box -->
                             <div class="small-box bg-success">
                               <div class="inner">
-                                <h3>0.00</h3>
+                                <h3><?= $totalv; ?></h3>
 
                                 <p>Ventas</p>
                               </div>
@@ -144,12 +146,12 @@ require "pages/sidebar.php";
                             </div>
                           </div>
                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="card card-success">
+                            <div class="card card-info">
                               <div class="card-header">
                                 <h3 class="card-title">Ventas de los ultimos 12 meses</h3>
                               </div>
                               <div class="card-body">
-                                <canvas id="ventas" width="400" height="300"></canvas>
+                                <canvas id="venta" width="400" height="300"></canvas>
                               </div>
                             </div>
                           </div>
@@ -225,13 +227,14 @@ var compras = new Chart(ctx, {
     }
 });
 
-var ctx = document.getElementById('ventas').getContext('2d');
-var ventas = new Chart(ctx, {
+
+var ctx = document.getElementById('venta').getContext('2d');
+var venta = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: [<?php echo $fechasv; ?>],
         datasets: [{
-            label: '# Ventas realizadas en los ultimos 12 meses',
+            label: '# Ventas de los ultimos 12 meses',
             data: [<?php echo $totalesv; ?>],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -274,6 +277,7 @@ var ventas = new Chart(ctx, {
         }
     }
 });
+
 </script>
 
 <?php 

@@ -46,6 +46,7 @@ require "pages/sidebar.php";
                             <button class="btn btn-success" onclick="mostrarForm(true)">
                                 <i class="fa fa-plus-circle"></i> Agregar
                             </button>
+                            <a href="../reportes/rptArticulo.php" class="btn btn-info" target="_blank">Reporte</a>
                         </div>
                         <div class="card-body">
                            <table id="tblistado" class="table table-striped table-bordered table-condensed table-hover">

@@ -23,18 +23,7 @@ class Consultas
    }
 
    // Metodo para listar las ventas a clietes entre dos fechas
-   public function ventasFecha($fecha_inicio,$fecha_fin,$idcliente)
-   {
-      $sql = "SELECT DATE(v.fecha_hora) AS fecha,u.nombre AS usuario,
-            p.nombre AS cliente,v.tipo_comprobante,v.serie_comprobante,v.num_comprobante,
-            v.total_venta,v.impuesto,v.estado
-            FROM ventas v JOIN personas p ON v.idcliente = p.idpersona
-                            JOIN usuarios u ON v.idusuario = u.idusuario
-            WHERE DATE(v.fecha_hora) BETWEEN '$fecha_inicio' AND '$fecha_fin'
-            AND v.idcliente = '$idcliente'";
 
-      return ejecutarConsulta($sql);
-   }
 
    public function totalCompraHoy()
    {
@@ -42,6 +31,7 @@ class Consultas
                FROM ingresos WHERE DATE(fecha_hora) = DATE(NOW())";
       return ejecutarConsulta($sql);
    }
+
 
 
    public function comprasUltimos10dias()
@@ -56,14 +46,15 @@ class Consultas
    public function ventasUltimos12meses()
    {
       $sql = "SELECT YEAR(fecha_hora) AS anio,
-                     MONTH(fecha_hora) AS mes,
-                      SUM(total_venta) AS total
-                FROM ventas
-                WHERE DATE(fecha_hora) BETWEEN DATE(CURDATE() - INTERVAL 12 MONTH) AND DATE(CURDATE())
-                GROUP BY YEAR(fecha_hora),MONTH(fecha_hora)
-                ORDER BY YEAR(fecha_hora),MONTH(fecha_hora)";
+               MONTH(fecha_hora) AS mes,
+               SUM(total_venta) AS total
+         FROM ventas
+         WHERE DATE(fecha_hora) BETWEEN DATE(NOW() - INTERVAL 12 MONTH) AND DATE(NOW())
+         GROUP BY YEAR(fecha_hora),MONTH(fecha_hora)
+         ORDER BY YEAR(fecha_hora),MONTH(fecha_hora)";
 
-      return ejecutarConsulta($sql);
+         return ejecutarConsulta($sql);
+
    }
 
 }

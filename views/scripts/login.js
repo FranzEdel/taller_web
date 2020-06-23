@@ -6,7 +6,7 @@ $('#frmAcceso').on('submit', function(e){
     $.post("../controllers/UsuarioController.php?op=verificar",{"logina":logina,"clavea":clavea},function(data){
         if(data != "null")
         {
-            $(location).attr('href','categorias.php');
+            $(location).attr('href','escritorio.php');
             //bootbox.alert('OK');
             //console.log(data);
         } else {
