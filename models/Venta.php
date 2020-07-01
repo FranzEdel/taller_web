@@ -63,6 +63,46 @@ class Venta
       return ejecutarConsulta($sql);
    }
 
+   public function ventaCabecera($idventa)
+   {
+      $sql = "SELECT v.idventa,
+                     v.idcliente,
+                     DATE(v.fecha_hora) AS fecha,
+                     p.nombre AS cliente,
+                     p.direccion,
+                     p.tipo_documento,
+                     p.num_documento,
+                     p.email,
+                     p.telefono,
+                     v.idusuario,
+                     u.nombre AS usuario,
+                     v.tipo_comprobante,
+                     v.serie_comprobante,
+                     v.num_comprobante,
+                     DATE(v.fecha_hora) AS fecha,
+                     v.impuesto,
+                     v.total_venta
+               FROM ventas v JOIN personas p ON v.idcliente = p.idpersona 
+                              JOIN usuarios u ON v.idusuario = u.idusuario
+               WHERE v.idventa = '$idventa'";
+
+      return ejecutarConsulta($sql);
+   }
+
+   public function ventaDetalle($idventa)
+   {
+      $sql = "SELECT a.nombre AS articulo,
+                     a.codigo,
+                     dv.cantidad,
+                     dv.precio_venta,
+                     dv.descuento,
+                     (dv.cantidad * dv.precio_venta - dv.descuento) AS subtotal
+               FROM detalle_venta dv JOIN articulos a ON dv.idarticulo = a.idarticulo 	  
+               WHERE dv.idventa = '$idventa'";
+
+      return ejecutarConsulta($sql);
+   }
+
 }
 
 ?>

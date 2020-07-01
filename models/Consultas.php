@@ -22,7 +22,6 @@ class Consultas
       return ejecutarConsulta($sql);
    }
 
-   // Metodo para listar las ventas a clietes entre dos fechas
 
 
    public function totalCompraHoy()

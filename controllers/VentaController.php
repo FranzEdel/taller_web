@@ -80,9 +80,15 @@ switch($_GET['op'])
       
       while($reg = $respuesta->fetch_object())
       {
+         if($reg->tipo_comprobante == "Ticket")
+         {
+            $url = '../reportes/exTicket.php?id=';
+         } else{
+            $url = '../reportes/exFactura.php?id=';
+         }
          $fecha = date("d/m/Y", strtotime($reg->fecha));
          $data[] = array(
-            "0" => ($reg->estado == 'Aceptado') ?
+            "0" => (($reg->estado == 'Aceptado') ?
                      '<button class="btn btn-sm btn-warning" title="Mostrar" onclick="mostrar('.$reg->idventa.')">
                         <i class="fa fa-eye"></i>
                      </button>
@@ -91,7 +97,7 @@ switch($_GET['op'])
                      </button>':
                      '<button class="btn btn-sm btn-warning" title="Mostrar" onclick="mostrar('.$reg->idventa.')">
                         <i class="fa fa-eye"></i>
-                     </button>',
+                     </button>').' '.'<a href="'.$url.$reg->idventa.'" class="btn btn-sm btn-info" target="_blank" title="Imprimir"><i class="fa fa-file"></i></a>',
             "1" => $fecha,
             "2" => $reg->cliente,
             "3" => $reg->usuario,

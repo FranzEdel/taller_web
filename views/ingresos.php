@@ -97,7 +97,7 @@ require "pages/sidebar.php";
                                         <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker" required>
                                             <option value="Boleta">Boleta</option>
                                             <option value="Factura">Factura</option>
-                                            <option value="Ticker">Ticker</option>
+                                            <option value="Ticket">Ticket</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
